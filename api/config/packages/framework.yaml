@@ -14,6 +14,15 @@ framework:
     php_errors:
         log: true
 
+    templating: { engines: ['twig'] }
+
+    form: { enabled: true }
+
+    serializer: { enable_annotations: true }
+    
+    translator: ~
+
+
     cache:
         # The app cache caches to the filesystem by default. Other options include:
 

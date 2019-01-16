@@ -5,12 +5,19 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  *
  * @ORM\Entity
  * @ORM\Table(name="answer")
- * @ApiResource
+ * @ApiResource(attributes={
+ *          "normalization_context"={"groups"={"granswer"}}
+ *      }
+ * )
+ * @ApiFilter(SearchFilter::class, properties={"id": "exact", "request.uuid": "exact", "department.name": "exact", "year.name": "exact"})
  */
 class Answer
 {
@@ -20,6 +27,7 @@ class Answer
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"granswer"})
      */
     private $id;
 
@@ -27,38 +35,34 @@ class Answer
      * @var string A text
      *
      * @ORM\Column(type="string")
+     * @Groups({"granswer"})
      * @Assert\NotBlank
      */
     private $text = '';
 
     /**
-     * @var string A value
-     *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank
-     */
-    private $value = '';
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Request", cascade={"persist"})
      * @ORM\JoinColumn(name="request_id", referencedColumnName="id", nullable=false)
+     * @Groups({"granswer"})
      */
     private $request;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Department", cascade={"persist"})
-     * @ORM\JoinColumn(name="department_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="department_id", referencedColumnName="id", nullable=true)
+     * @Groups({"granswer"})
      */
     private $department;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Year", cascade={"persist"})
-     * @ORM\JoinColumn(name="year_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="year_id", referencedColumnName="id", nullable=true)
+     * @Groups({"granswer"})
      */
     private $year;
 
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -78,25 +82,6 @@ class Answer
     public function setText($text)
     {
         $this->text = $text;
-
-        return $this;
-    }
-
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * Set value.
-     *
-     * @param string $value
-     *
-     * @return Answer
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
 
         return $this;
     }

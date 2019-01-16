@@ -1,0 +1,23 @@
+<form 
+	action="http://51.38.45.203:9090/createIntent.php" 
+	method ="POST"
+	enctype="application/json"
+>
+	Les départements concernés: <br/>
+	<label><input name="Departement" type="checkbox" value="DI"/>DI </label> <br/>
+	<label><input name="Departement" type="checkbox" value="DII"/>DII </label> <br/>
+	<label><input name="Departement" type="checkbox" value="DAE"/>DAE </label> <br/>
+	<label><input name="Departement" type="checkbox" value="DEE"/>DEE </label> <br/>
+	<label><input name="Departement" type="checkbox" value="DMS"/>DMS </label> <br/>
+	<br/> <br/>
+	Les années concernés: <br/>
+	<label><input name="Annee" type="checkbox" value="5"/>5 </label> <br/>
+	<label><input name="Annee" type="checkbox" value="4"/>4 </label> <br/>
+	<label><input name="Annee" type="checkbox" value="3"/>3 </label> <br/>
+	<br/> <br/>            
+	<label>Nom de la Question</label> <input class="text" name="nom_question">  <br/>
+	<label>Reponse</label> <input name="reponse_question">  <br/>
+	<label>Format de la réponse</label><input name="format_reponse"> <br/>
+	<br/><br/>
+	<input type="submit" value="Submit">
+ </form>

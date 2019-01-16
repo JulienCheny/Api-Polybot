@@ -5,11 +5,20 @@ parameters:
     # You should not need to change this value.
     env(VARNISH_URL): ''
 
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: App\Entity\User
+    from_email:
+        address: "aperotif@gmail.com"
+        sender_name: "aperotif@gmail.com"
+
 api_platform:
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     title: Hello API Platform
     version: 1.0.0
+    enable_fos_user: true
     # Enable the Varnish integration
     http_cache:
         invalidation:

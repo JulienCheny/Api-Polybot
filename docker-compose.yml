@@ -25,6 +25,9 @@ services:
        - ./api/config/services.yaml:/srv/api/config/services.yaml:rw
        - ./api/config/bundles.php:/srv/api/config/bundles.php:rw
        - ./api/config/routes.yaml:/srv/api/config/routes.yaml:rw
+       - ./api/composer.json:/srv/api/composer.json:rw
+       - ./api/composer.lock:/srv/api/composer.lock:rw
+
 
 
   api:
@@ -71,7 +74,7 @@ services:
       # You should definitely change the password in production
       - POSTGRES_PASSWORD=!ChangeMe!
     volumes:
-      - db-data:/var/lib/postgresql/data:rw
+      - ./api/docker/db:/var/lib/postgresql/data:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
     #ports:
