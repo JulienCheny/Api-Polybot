@@ -127,5 +127,19 @@ services:
 #      - "8443:8443"
 #      - "8444:8444"
 
+phpserv-web:
+    image: nginx:latest
+    ports:
+        - "9090:80"
+    volumes:
+        - ./php-serv/code:/code
+        - ./php-serv/site.conf:/etc/nginx/conf.d/default.conf
+    links:
+        - php
+phpserv-php:
+    image: php:7-fpm
+    volumes:
+        - ./php-serv/code:/code
+
 volumes:
   db-data: {}
